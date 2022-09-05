@@ -1,2 +1,2 @@
-# softexpert
+# App
 Sistema de vendas simples 
