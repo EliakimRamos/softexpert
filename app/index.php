@@ -2,6 +2,7 @@
 require_once "../vendor/autoload.php";
 
 use Controller\UserController;
+use Controller\ProfileController;
 
 $request = $_SERVER['REQUEST_URI'];
 
@@ -41,8 +42,29 @@ switch ($request) {
         print($jsonRetorno);
         break;
 
-    case '/about':
-        require __DIR__ . '/controller/aboutus.php';
+    case '/app/api/getprofile':
+        $controllerProfile = new ProfileController();
+        $retorno = $controllerProfile->GetProfile($_REQUEST);
+        $jsonRetorno = json_encode(array('data' => array('status' => 200, 'mensage'=> $retorno)));
+        print($jsonRetorno);
+        break;
+    case '/app/api/profiles':
+        $controllerProfile = new ProfileController();
+        $retorno = $controllerProfile->Profiles();
+        $jsonRetorno = json_encode(array('data' => array('status' => 200, 'mensage'=> $retorno)));
+        print($jsonRetorno);
+        break;
+    case '/app/api/insertprofile':
+        $controllerProfile = new ProfileController();
+        $retorno = $controllerProfile->InsertProfile($_REQUEST);
+        $jsonRetorno = json_encode(array('data' => array('status' => 200, 'mensage'=> $retorno)));
+        print($jsonRetorno);
+        break;
+    case '/app/api/updateprofile':
+        $controllerProfile = new ProfileController();
+        $retorno = $controllerProfile->UpdateProfile($_REQUEST);
+        $jsonRetorno = json_encode(array('data' => array('status' => 200, 'mensage'=> $retorno)));
+        print($jsonRetorno);
         break;
 
     default:
