@@ -3,6 +3,7 @@ require_once "../vendor/autoload.php";
 
 use Controller\UserController;
 use Controller\ProfileController;
+use Controller\ProductTypeController;
 
 $request = $_SERVER['REQUEST_URI'];
 
@@ -63,6 +64,30 @@ switch ($request) {
     case '/app/api/updateprofile':
         $controllerProfile = new ProfileController();
         $retorno = $controllerProfile->UpdateProfile($_REQUEST);
+        $jsonRetorno = json_encode(array('data' => array('status' => 200, 'mensage'=> $retorno)));
+        print($jsonRetorno);
+        break;
+    case '/app/api/insertproducttype':
+        $controllerProductType = new ProductTypeController();
+        $retorno = $controllerProductType->InsertProductType($_REQUEST);
+        $jsonRetorno = json_encode(array('data' => array('status' => 200, 'mensage'=> $retorno)));
+        print($jsonRetorno);
+        break;
+    case '/app/api/updateproducttype':
+        $controllerProductType = new ProductTypeController();
+        $retorno = $controllerProductType->UpdateProductType($_REQUEST);
+        $jsonRetorno = json_encode(array('data' => array('status' => 200, 'mensage'=> $retorno)));
+        print($jsonRetorno);
+        break;
+    case '/app/api/producttypes':
+        $controllerProductType = new ProductTypeController();
+        $retorno = $controllerProductType->productTypes();
+        $jsonRetorno = json_encode(array('data' => array('status' => 200, 'mensage'=> $retorno)));
+        print($jsonRetorno);
+        break;
+    case '/app/api/getproducttype':
+        $controllerProductType = new ProductTypeController();
+        $retorno = $controllerProductType->GetProductType($_REQUEST);
         $jsonRetorno = json_encode(array('data' => array('status' => 200, 'mensage'=> $retorno)));
         print($jsonRetorno);
         break;

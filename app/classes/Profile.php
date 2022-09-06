@@ -15,14 +15,6 @@ class Profile {
         $this->db = Connection::get()->connect();
     }
 
-    public function Login ($payload) {
-        $sql = "select * from profile where login = ? and password = ? ";
-        $st = $this->db->prepare($sql);
-        $st->execute($payload);
-        $result = $st->fetch(\PDO::FETCH_OBJ);
-        return $result;
-    }
-
     public function Insert ($payload) {
         $sql = "INSERT INTO profile (". implode(",",array_keys($payload)).") values (". implode(',', array_fill(0, count($payload), '?')).")";
         $st = $this->db->prepare($sql);

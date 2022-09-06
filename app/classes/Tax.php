@@ -15,14 +15,7 @@ class Tax {
         $this->db = Connection::get()->connect();
     }
 
-    public function Login ($payload) {
-        $sql = "select * from tax where login = ? and password = ? ";
-        $st = $this->db->prepare($sql);
-        $st->execute($payload);
-        $result = $st->fetch(\PDO::FETCH_OBJ);
-        return $result;
-    }
-
+   
     public function Insert ($payload) {
         $sql = "INSERT INTO tax (". implode(",",array_keys($payload)).") values (". implode(',', array_fill(0, count($payload), '?')).")";
         $st = $this->db->prepare($sql);

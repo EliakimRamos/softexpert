@@ -15,14 +15,6 @@ class Sale {
         $this->db = Connection::get()->connect();
     }
 
-    public function Login ($payload) {
-        $sql = "select * from sale where login = ? and password = ? ";
-        $st = $this->db->prepare($sql);
-        $st->execute($payload);
-        $result = $st->fetch(\PDO::FETCH_OBJ);
-        return $result;
-    }
-
     public function Insert ($payload) {
         $sql = "INSERT INTO sale (". implode(",",array_keys($payload)).") values (". implode(',', array_fill(0, count($payload), '?')).")";
         $st = $this->db->prepare($sql);

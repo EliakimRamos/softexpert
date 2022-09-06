@@ -15,33 +15,25 @@ class ProductType {
         $this->db = Connection::get()->connect();
     }
 
-    public function Login ($payload) {
-        $sql = "select * from productType where login = ? and password = ? ";
-        $st = $this->db->prepare($sql);
-        $st->execute($payload);
-        $result = $st->fetch(\PDO::FETCH_OBJ);
-        return $result;
-    }
-
     public function Insert ($payload) {
-        $sql = "INSERT INTO productType (". implode(",",array_keys($payload)).") values (". implode(',', array_fill(0, count($payload), '?')).")";
+        $sql = "INSERT INTO product_type (". implode(",",array_keys($payload)).") values (". implode(',', array_fill(0, count($payload), '?')).")";
         $st = $this->db->prepare($sql);
         $this->db->beginTransaction();
-        $st->execute($payload);
+        $st->execute(array($payload['name']));
         $this->db->commit();
         return $this->db->lastInsertId();
     }
 
     public function Update($payload)
     {
-        $sql = "UPDATE productType SET profile_id = ?, name = ?, login = ? password = ? where productType_id = ? ";
+        $sql = "UPDATE product_type SET name = ? where product_type_id = ? ";
         $st = $this->db->prepare($sql);
-        $st->execute($payload);
+        $st->execute(array($payload['name'],$payload['id']));
         return true;
     }
 
     public function SelectAll () {
-        $sql = "SELECT * FROM productType ";
+        $sql = "SELECT * FROM product_type ";
         $st = $this->db->prepare($sql);
         $st->execute();
         while ($dadosRetorn = $st->fetch(\PDO::FETCH_OBJ)) {
@@ -53,9 +45,9 @@ class ProductType {
 
     public function GetProductTypeById ($payload)
     {
-        $sql = "SELECT * FROM productType where productType_id = ?";
+        $sql = "SELECT * FROM product_type where product_type_id = ?";
         $st = $this->db->prepare($sql);
-        $st->execute($payload);
+        $st->execute(array($payload['id']));
         while ($dadosRetorn = $st->fetch(\PDO::FETCH_OBJ)) {
             $return[] = $dadosRetorn;
         }
