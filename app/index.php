@@ -28,6 +28,18 @@ switch ($request) {
         $jsonRetorno = json_encode(array('data' => array('status' => 200, 'mensage'=> $retorno)));
         print($jsonRetorno);
         break;
+    case '/app/api/insertuser':
+        $controller = new UserController();
+        $retorno = $controller->InsertUser($_REQUEST);
+        $jsonRetorno = json_encode(array('data' => array('status' => 200, 'mensage'=> $retorno)));
+        print($jsonRetorno);
+        break;
+    case '/app/api/updateuser':
+        $controller = new UserController();
+        $retorno = $controller->UpdateUser($_REQUEST);
+        $jsonRetorno = json_encode(array('data' => array('status' => 200, 'mensage'=> $retorno)));
+        print($jsonRetorno);
+        break;
 
     case '/about':
         require __DIR__ . '/controller/aboutus.php';

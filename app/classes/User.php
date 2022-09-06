@@ -27,16 +27,16 @@ class User {
         $sql = 'INSERT INTO public."user" ('. implode(",",array_keys($payload)).') values ('. implode(',', array_fill(0, count($payload), '?')).')';
         $st = $this->db->prepare($sql);
         $this->db->beginTransaction();
-        $st->execute($payload);
+        $st->execute(array($payload['profile_id'],$payload['name'],$payload['login'],$payload['password']));
         $this->db->commit();
         return $this->db->lastInsertId();
     }
 
     public function Update($payload)
     {
-        $sql = 'UPDATE public."user" SET profile_id = ?, name = ?, login = ? password = ? where user_id = ? ';
+        $sql = 'UPDATE public."user" SET profile_id = ?, name = ?, login = ?, password = ? where user_id = ? ';
         $st = $this->db->prepare($sql);
-        $st->execute($payload);
+        $st->execute(array($payload['profile_id'],$payload['name'],$payload['login'],$payload['password'],$payload['user_id']));
         return true;
     }
 
