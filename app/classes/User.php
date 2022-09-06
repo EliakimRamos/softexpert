@@ -16,9 +16,9 @@ class User {
     }
 
     public function Login ($payload) {
-        $sql = "select * from user where login = ? and password = ? ";
+        $sql = 'select * from public."user" as u where u.login = ? and u.password = ? ';
         $st = $this->db->prepare($sql);
-        $st->execute($payload);
+        $st->execute(array($payload['login'],$payload['password']));
         $result = $st->fetch(\PDO::FETCH_OBJ);
         return $result;
     }

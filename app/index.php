@@ -1,13 +1,18 @@
 <?php
+require_once "../vendor/autoload.php";
 
+use Controller\UserController;
 
 $request = $_SERVER['REQUEST_URI'];
 
 switch ($request) {
 
-    case '':
-    case '/':
-        require __DIR__ . '/controller/user.php';
+
+    case '/app/api/login':
+                $controller = new UserController();
+                $retorno = $controller->Login($_REQUEST);
+                $jsonRetorno = json_encode(array('data' => array('status' => 200, 'mensage'=> $retorno)));
+                print($jsonRetorno);
         break;
 
     case '/courses':
@@ -24,6 +29,6 @@ switch ($request) {
 
     default:
         http_response_code(404);
-        require __DIR__ . '/controller/404.php';
+        //require __DIR__ . '/controller/404.php';
         break;
 }
