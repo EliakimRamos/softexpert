@@ -15,12 +15,18 @@ switch ($request) {
                 print($jsonRetorno);
         break;
 
-    case '/courses':
-        require __DIR__ . '/controller/courses.php';
+    case '/app/api/user':
+        $controller = new UserController();
+        $retorno = $controller->GetUserById($_REQUEST);
+        $jsonRetorno = json_encode(array('data' => array('status' => 200, 'mensage'=> $retorno)));
+        print($jsonRetorno);
         break;
 
-    case '/controller/authors':
-        require __DIR__ . '/controller/authors.php';
+    case '/app/api/alluser':
+        $controller = new UserController();
+        $retorno = $controller->GetAllUser();
+        $jsonRetorno = json_encode(array('data' => array('status' => 200, 'mensage'=> $retorno)));
+        print($jsonRetorno);
         break;
 
     case '/about':

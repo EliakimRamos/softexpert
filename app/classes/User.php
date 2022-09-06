@@ -16,7 +16,7 @@ class User {
     }
 
     public function Login ($payload) {
-        $sql = 'select * from public."user" as u where u.login = ? and u.password = ? ';
+        $sql = 'select * from public."public."user"" as u where u.login = ? and u.password = ? ';
         $st = $this->db->prepare($sql);
         $st->execute(array($payload['login'],$payload['password']));
         $result = $st->fetch(\PDO::FETCH_OBJ);
@@ -24,7 +24,7 @@ class User {
     }
 
     public function Insert ($payload) {
-        $sql = "INSERT INTO user (". implode(",",array_keys($payload)).") values (". implode(',', array_fill(0, count($payload), '?')).")";
+        $sql = 'INSERT INTO public."user" ('. implode(",",array_keys($payload)).') values ('. implode(',', array_fill(0, count($payload), '?')).')';
         $st = $this->db->prepare($sql);
         $this->db->beginTransaction();
         $st->execute($payload);
@@ -34,14 +34,14 @@ class User {
 
     public function Update($payload)
     {
-        $sql = "UPDATE user SET profile_id = ?, name = ?, login = ? password = ? where user_id = ? ";
+        $sql = 'UPDATE public."user" SET profile_id = ?, name = ?, login = ? password = ? where user_id = ? ';
         $st = $this->db->prepare($sql);
         $st->execute($payload);
         return true;
     }
 
     public function SelectAll () {
-        $sql = "SELECT * FROM user ";
+        $sql = 'SELECT * FROM public."user" ';
         $st = $this->db->prepare($sql);
         $st->execute();
         while ($dadosRetorn = $st->fetch(\PDO::FETCH_OBJ)) {
@@ -53,9 +53,9 @@ class User {
 
     public function GetUserById ($payload)
     {
-        $sql = "SELECT * FROM user where user_id = ?";
+        $sql = 'SELECT * FROM public."user" where user_id = ?';
         $st = $this->db->prepare($sql);
-        $st->execute($payload);
+        $st->execute(array($payload['id']));
         while ($dadosRetorn = $st->fetch(\PDO::FETCH_OBJ)) {
             $return[] = $dadosRetorn;
         }

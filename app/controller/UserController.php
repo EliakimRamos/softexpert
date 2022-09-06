@@ -29,4 +29,28 @@ class UserController {
             return http_response_code(400);
         }
     }
+
+    public function GetUserById($payload)
+    {
+        if (!empty($payload['id'])) {
+            $retorno = $this->user->GetUserById($payload);
+            if (!empty($retorno)) {
+                return $retorno;
+            } else {
+                return  http_response_code(401);
+            }
+        } else {
+            return http_response_code(400);
+        }
+    }
+
+    public function GetAllUser()
+    {
+        $retorno = $this->user->SelectAll();
+        if (!empty($retorno)) {
+            return $retorno;
+        } else {
+            return  http_response_code(401);
+        }
+    }
 }
